@@ -1,0 +1,1 @@
+export type ListenerFn<TItem> = (items: TItem[]) => void;
