@@ -16,6 +16,7 @@ export abstract class ComponentBase<THostElement extends HTMLElement, TElement e
     }
 
     protected abstract renderContent(): void;
+    protected abstract configure(): void;
 
     protected attach(insertAtStart: boolean) {
         this.hostElement.insertAdjacentElement(insertAtStart ? 'afterbegin' : 'beforeend', this.element);

@@ -10,9 +10,8 @@ export class ProjectState extends StateBase<Project> {
         super();
     }
 
-    addProject(hostId: string, title: string, description: string, numOfPeople: number, status: ProjectStatus) {
+    addProject(title: string, description: string, numOfPeople: number, status: ProjectStatus) {
         const newProject: Project = {
-            hostId,
             id: Math.random().toString(),
             title,
             description,
@@ -22,9 +21,7 @@ export class ProjectState extends StateBase<Project> {
 
         this.projects.push(newProject);
         
-        this.listeners.forEach(listenerFn => {
-            listenerFn(this.projects.slice());
-        })
+        this.setListeners();
     }
 
     static getInstance(): ProjectState {
@@ -33,5 +30,19 @@ export class ProjectState extends StateBase<Project> {
         } 
 
         return ProjectState.instance;
+    }
+
+    changeProjectStatusById(projectId: string, projectStatus: ProjectStatus) {
+        const project = this.projects.find(project => project.id === projectId);
+        if (project && project.status !== projectStatus) {
+            project.status = projectStatus;
+            this.setListeners();
+        }
+    }
+
+    private setListeners() {
+        this.listeners.forEach(listenerFn => {
+            listenerFn(this.projects.slice());
+        });
     }
 }

@@ -24,7 +24,11 @@ export class ProjectInput extends ComponentBase<HTMLDivElement, HTMLFormElement>
         this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement;
         this.peopleInputElement = this.element.querySelector('#people') as HTMLInputElement;
         
-        this.element.addEventListener('submit', this.submitHandler)
+        this.configure();
+    }
+
+    protected configure() {
+        this.element.addEventListener('submit', this.submitHandler);
     }
 
     protected renderContent(): void { }
@@ -36,7 +40,7 @@ export class ProjectInput extends ComponentBase<HTMLDivElement, HTMLFormElement>
 
         if (Array.isArray(userInput)) {
             const [title, description, people] = userInput;
-            ProjectState.getInstance().addProject(`${ProjectStatus.ACTIVE}-projects-list`, title, description, people, ProjectStatus.ACTIVE);
+            ProjectState.getInstance().addProject(title, description, people, ProjectStatus.ACTIVE);
             this.element.reset();
         }
     }
