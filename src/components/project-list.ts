@@ -29,6 +29,8 @@ export class ProjectList extends ComponentBase<HTMLDivElement, HTMLElement> impl
         const data = event.dataTransfer?.getData('projectid');
         if (data) 
             ProjectState.getInstance().changeProjectStatusById(data, this.type === ProjectStatus.FINISHED ? ProjectStatus.FINISHED : ProjectStatus.ACTIVE);
+
+        (this.element.querySelector('ul') as HTMLUListElement).classList.remove('droppable'); 
     }
 
     @autobind

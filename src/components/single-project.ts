@@ -19,7 +19,7 @@ export class SingleProject extends ComponentBase<HTMLUListElement, HTMLLIElement
 
     @autobind
     dragEndHandler(_event: DragEvent): void {
-        
+        this.hostElement.classList.remove('droppable'); 
     }
 
     get persons(): string {
